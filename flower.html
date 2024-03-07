@@ -11,7 +11,64 @@
     <audio autoplay>
       <source src="partilhar.mp3" type="audio/mp3">
     </audio>
+    <script src="https://www.youtube.com/iframe_api"></script>
 </head>
+
+<body style="position: relative;">
+
+  <!-- Conteúdo da página -->
+
+  <!-- Botão de play para o áudio do vídeo -->
+  <div class="audio-button" style="position: absolute; top: 90%; left: 50%; transform: translate(-50%, -50%); z-index: 999;">
+    <button id="playButton">Play Áudio</button>
+  </div>
+
+  <!-- Substitua 'VIDEO_ID' pelo ID do vídeo do YouTube -->
+  <div id="youtubeAudio" style="display: none;"></div>
+
+  <script>
+      var player;
+
+      function onYouTubeIframeAPIReady() {
+          player = new YT.Player('youtubeAudio', {
+              height: '0',
+              width: '0',
+              videoId: 'ivHE7pQEEHI', // Substitua pelo ID do vídeo do YouTube
+              events: {
+                  'onReady': onPlayerReady,
+                  'onStateChange': onPlayerStateChange
+              }
+          });
+      }
+
+      function onPlayerReady(event) {
+          // O vídeo está pronto para ser reproduzido
+          // Adicione ações adicionais aqui, se necessário
+          setupAudioButton();
+      }
+
+      function onPlayerStateChange(event) {
+          // Lidar com mudanças no estado do player, se necessário
+      }
+
+      function setupAudioButton() {
+          var playButton = document.getElementById('playButton');
+          var isAudioPlaying = false;
+
+          playButton.addEventListener('click', function () {
+              if (!isAudioPlaying) {
+                  player.playVideo();
+                  playButton.textContent = 'Pause Áudio';
+              } else {
+                  player.pauseVideo();
+                  playButton.textContent = 'Play Áudio';
+              }
+
+              isAudioPlaying = !isAudioPlaying;
+          });
+      }
+  </script>
+</body>
 
 <body>
 <div class="greetings">
@@ -323,5 +380,7 @@
     </div>
     <script src="main.js"></script>
   </body>
-  
+
+
+
 </html>

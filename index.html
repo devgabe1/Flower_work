@@ -13,14 +13,20 @@
 <body>
     <div class="greetings">
         <span>A M E P</span>
+        <span>Ê</span>
     </div>
     <div class="description">
         <span>Feliz dia das Mulheres!</span>
     </div>
     
-    <!-- Botão de play para o áudio do vídeo e navegação para "flower.html" -->
+    <!-- Botão de play para o áudio do vídeo -->
     <div class="audio-button">
-        <button id="playAndGoButton">Play Áudio e Ir para Flower</button>
+        <button id="playButton">Play Áudio</button>
+    </div>
+
+    <!-- Adicionando um segundo botão para ir para "flower.html" -->
+    <div class="flower-button">
+        <button id="flowerButton" ontouchstart="">Ir para Flower</button>
     </div>
 
     <!-- Substitua 'VIDEO_ID' pelo ID do vídeo do YouTube -->
@@ -44,53 +50,39 @@
         function onPlayerReady(event) {
             // O vídeo está pronto para ser reproduzido
             // Adicione ações adicionais aqui, se necessário
-            setupPlayAndGoButton();
-            restoreAudioState(); // Restaura o estado do áudio ao carregar a página
+            setupAudioButton();
+            setupFlowerButton();
         }
 
         function onPlayerStateChange(event) {
             // Lidar com mudanças no estado do player, se necessário
-            saveAudioState(); // Salva o estado do áudio quando ele muda
         }
 
-        function setupPlayAndGoButton() {
-            var playAndGoButton = document.getElementById('playAndGoButton');
+        function setupAudioButton() {
+            var playButton = document.getElementById('playButton');
             var isAudioPlaying = false;
 
-            playAndGoButton.addEventListener('click', function () {
-                // Reproduz ou pausa o áudio
+            playButton.addEventListener('click', function () {
                 if (!isAudioPlaying) {
                     player.playVideo();
-                    playAndGoButton.textContent = 'Pause Áudio e Ir para Flower';
+                    playButton.textContent = 'Pause Áudio';
                 } else {
                     player.pauseVideo();
-                    playAndGoButton.textContent = 'Play Áudio e Ir para Flower';
+                    playButton.textContent = 'Play Áudio';
                 }
-
-                // Navega para "flower.html"
-                window.location.href = 'flower.html';
 
                 isAudioPlaying = !isAudioPlaying;
             });
         }
 
-        // Funções para persistir o estado do áudio usando localStorage
-        function saveAudioState() {
-            var isAudioPlaying = player.getPlayerState() === YT.PlayerState.PLAYING;
-            localStorage.setItem('audioState', isAudioPlaying);
+        function setupFlowerButton() {
+            var flowerButton = document.getElementById('flowerButton');
+            flowerButton.addEventListener('click', function (event) {
+                event.preventDefault();  // Evita o comportamento padrão do navegador
+                // Redireciona para a página "flower.html"
+                window.location.href = 'flower.html';
+            });
         }
-
-        function restoreAudioState() {
-            var savedAudioState = localStorage.getItem('audioState');
-            if (savedAudioState === 'true') {
-                player.playVideo();
-            }
-        }
-
-        // Evento unload para garantir que o estado do áudio seja salvo ao sair da página
-        window.addEventListener('unload', function () {
-            saveAudioState();
-        });
     </script>
 </body>
 </html>
