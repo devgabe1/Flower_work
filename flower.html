@@ -16,56 +16,41 @@
 
   <!-- Botão de play para o áudio da música -->
   <div class="audio-button" style="position: absolute; top: 16%; left: 50%; transform: translate(-50%, -50%); z-index: 999;">
-    <button id="playButton" style="font-size: 16px; padding: 5px 5px; cursor: pointer;">Play Áudio</button>
-</div>
+      <button id="playButton" style="font-size: 16px; padding: 5px 5px; cursor: pointer;">Play Áudio</button>
+  </div>
 
-<!-- Elemento de áudio oculto -->
-<audio id="audioPlayer" src="partilhar.mp3" controls style="display: none;"></audio>
+  <!-- Elemento de áudio oculto -->
+  <audio id="audioPlayer" src="partilhar.mp3" controls style="display: none;"></audio>
 
-<script>
-    var audioPlayer;
-    var isAudioPlaying = false;
+  <script>
+      var audioPlayer;
+      var isAudioPlaying = false;
 
-    document.addEventListener('DOMContentLoaded', function () {
-        audioPlayer = document.getElementById('audioPlayer');
-        setupAudioButton();
-    });
+      document.addEventListener('DOMContentLoaded', function () {
+          audioPlayer = document.getElementById('audioPlayer');
+          setupAudioButton();
+      });
 
-    function setupAudioButton() {
-        var playButton = document.getElementById('playButton');
+      function setupAudioButton() {
+          var playButton = document.getElementById('playButton');
 
-        playButton.addEventListener('click', function () {
-            if (!isAudioPlaying) {
-                playAudio();
-            }
+          playButton.addEventListener('click', function () {
+              if (!isAudioPlaying) {
+                  playAudio();
+              }
 
-            isAudioPlaying = true;
-        });
-    }
+              isAudioPlaying = true;
+          });
+      }
 
-    function playAudio() {
-        audioPlayer.play().catch(function () {
-            // Tratamento de erros, se necessário
-        });
-    }
-    function playAudio() {
-    return audioPlayer.play().catch(function (error) {
-        // Handle errors, if necessary
-        console.error('Error playing audio:', error);
-    });
-}
-
-    playButton.addEventListener('click', function () {
-    if (!isAudioPlaying) {
-        playAudio().then(function () {
-            isAudioPlaying = true;
-        });
-    }
-});
-
-</script>
+      function playAudio() {
+          return audioPlayer.play().catch(function (error) {
+              // Tratamento de erros, se necessário
+              console.error('Erro ao reproduzir áudio:', error);
+          });
+      }
+  </script>
 </body>
-
 <body>
 <div class="greetings">
       <span>0</span>
