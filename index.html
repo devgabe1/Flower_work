@@ -18,63 +18,13 @@
     <div class="description">
         <span>Feliz dia das Mulheres!</span>
     </div>
-    
-    <!-- Botão de play para o áudio do vídeo -->
-    <div class="audio-button">
-        <button id="playButton">Play Áudio</button>
-    </div>
 
-    <!-- Adicionando um segundo botão para ir para "flower.html" -->
+    <!-- Adicionando um botão para ir para "flower.html" -->
     <div class="flower-button">
         <button id="flowerButton" ontouchstart="">Ir para Flower</button>
     </div>
 
-    <!-- Substitua 'VIDEO_ID' pelo ID do vídeo do YouTube -->
-    <div id="youtubeAudio" style="display: none;"></div>
-
     <script>
-        var player;
-
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('youtubeAudio', {
-                height: '0',
-                width: '0',
-                videoId: 'ivHE7pQEEHI', // Substitua pelo ID do vídeo do YouTube
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
-        }
-
-        function onPlayerReady(event) {
-            // O vídeo está pronto para ser reproduzido
-            // Adicione ações adicionais aqui, se necessário
-            setupAudioButton();
-            setupFlowerButton();
-        }
-
-        function onPlayerStateChange(event) {
-            // Lidar com mudanças no estado do player, se necessário
-        }
-
-        function setupAudioButton() {
-            var playButton = document.getElementById('playButton');
-            var isAudioPlaying = false;
-
-            playButton.addEventListener('click', function () {
-                if (!isAudioPlaying) {
-                    player.playVideo();
-                    playButton.textContent = 'Pause Áudio';
-                } else {
-                    player.pauseVideo();
-                    playButton.textContent = 'Play Áudio';
-                }
-
-                isAudioPlaying = !isAudioPlaying;
-            });
-        }
-
         function setupFlowerButton() {
             var flowerButton = document.getElementById('flowerButton');
             flowerButton.addEventListener('click', function (event) {
@@ -83,6 +33,11 @@
                 window.location.href = 'flower.html';
             });
         }
+
+        // Chama a função de configuração quando o DOM estiver pronto
+        document.addEventListener('DOMContentLoaded', function () {
+            setupFlowerButton();
+        });
     </script>
 </body>
 </html>

@@ -19,8 +19,8 @@
   <!-- Conteúdo da página -->
 
   <!-- Botão de play para o áudio do vídeo -->
-  <div class="audio-button" style="position: absolute; top: 90%; left: 50%; transform: translate(-50%, -50%); z-index: 999;">
-    <button id="playButton">Play Áudio</button>
+  <div class="audio-button" style="position: absolute; top: 16%; left: 50%; transform: translate(-50%, -50%); z-index: 999;">
+      <button id="playButton" style="font-size: 16px; padding: 5px 5px; cursor: pointer;">Play Áudio</button>
   </div>
 
   <!-- Substitua 'VIDEO_ID' pelo ID do vídeo do YouTube -->
@@ -33,7 +33,7 @@
           player = new YT.Player('youtubeAudio', {
               height: '0',
               width: '0',
-              videoId: 'ivHE7pQEEHI', // Substitua pelo ID do vídeo do YouTube
+              videoId: 'KJzBxJ8ExRk', // Substitua pelo ID do vídeo do YouTube
               events: {
                   'onReady': onPlayerReady,
                   'onStateChange': onPlayerStateChange
