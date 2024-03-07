@@ -28,6 +28,7 @@
 
   <script>
       var player;
+      var isAudioPlaying = false;
 
       function onYouTubeIframeAPIReady() {
           player = new YT.Player('youtubeAudio', {
@@ -53,7 +54,6 @@
 
       function setupAudioButton() {
           var playButton = document.getElementById('playButton');
-          var isAudioPlaying = false;
 
           playButton.addEventListener('click', function () {
               if (!isAudioPlaying) {
@@ -64,8 +64,17 @@
 
               isAudioPlaying = !isAudioPlaying;
           });
+
+          // Adicionar um evento de clique para reprodução do vídeo apenas após um clique direto do usuário
+          document.addEventListener('click', function() {
+              if (!isAudioPlaying) {
+                  player.playVideo();
+                  isAudioPlaying = true;
+              }
+          }, { once: true });
       }
   </script>
+  <script src="https://www.youtube.com/iframe_api"></script>
 </body>
 
 <body>
