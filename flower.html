@@ -8,78 +8,43 @@
 
     <link rel="icon" href="img/flowers.png" type="image/x-icon">
     <title>flowers</title>
-    <audio autoplay>
-      <source src="partilhar.mp3" type="audio/mp3">
-    </audio>
-    <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 
 <body style="position: relative;">
 
   <!-- Conteúdo da página -->
 
-  <!-- Botão de play para o áudio do vídeo -->
+  <!-- Botão de play para o áudio da música -->
   <div class="audio-button" style="position: absolute; top: 16%; left: 50%; transform: translate(-50%, -50%); z-index: 999;">
       <button id="playButton" style="font-size: 16px; padding: 5px 5px; cursor: pointer;">Play Áudio</button>
   </div>
 
-  <!-- Substitua 'VIDEO_ID' pelo ID do vídeo do YouTube -->
-  <div id="youtubeAudio" style="display: none;"></div>
+  <!-- Elemento de áudio oculto -->
+  <audio id="audioPlayer" src="partilhar.mp3" style="display: none;"></audio>
 
   <script>
-      var player;
+      var audioPlayer;
       var isAudioPlaying = false;
-      var userClicked = false;
 
-      function onYouTubeIframeAPIReady() {
-          player = new YT.Player('youtubeAudio', {
-              height: '0',
-              width: '0',
-              videoId: 'pOYrcQC1k68', // Substitua pelo ID do vídeo do YouTube
-              events: {
-                  'onReady': onPlayerReady,
-                  'onStateChange': onPlayerStateChange
-              }
-          });
-      }
-
-      function onPlayerReady(event) {
-          // O vídeo está pronto para ser reproduzido
-          // Adicione ações adicionais aqui, se necessário
+      document.addEventListener('DOMContentLoaded', function () {
+          audioPlayer = document.getElementById('audioPlayer');
           setupAudioButton();
-      }
-
-      function onPlayerStateChange(event) {
-          // Lidar com mudanças no estado do player, se necessário
-      }
+      });
 
       function setupAudioButton() {
           var playButton = document.getElementById('playButton');
 
           playButton.addEventListener('click', function () {
               if (!isAudioPlaying) {
-                  player.playVideo();
+                  audioPlayer.play();
               } else {
-                  player.pauseVideo();
+                  audioPlayer.pause();
               }
 
               isAudioPlaying = !isAudioPlaying;
           });
-
-          playButton.addEventListener('mousedown', function() {
-              userClicked = true;
-          });
-
-          // Adicionar um evento de clique para reprodução do vídeo apenas após um clique direto do usuário
-          document.addEventListener('click', function() {
-              if (userClicked && !isAudioPlaying) {
-                  player.playVideo();
-                  isAudioPlaying = true;
-              }
-          }, { once: true });
       }
   </script>
-  <script src="https://www.youtube.com/iframe_api"></script>
 </body>
 
 <body>
