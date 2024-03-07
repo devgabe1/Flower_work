@@ -27,52 +27,43 @@
   <div id="youtubeAudio" style="display: none;"></div>
 
   <script>
-    var player;
+      var player;
 
-    function onYouTubeIframeAPIReady() {
-        player = new YT.Player('youtubeAudio', {
-            height: '0',
-            width: '0',
-            videoId: 'KJzBxJ8ExRk', // Substitua pelo ID do vídeo do YouTube
-            events: {
-                'onReady': onPlayerReady,
-                'onStateChange': onPlayerStateChange
-            }
-        });
-    }
+      function onYouTubeIframeAPIReady() {
+          player = new YT.Player('youtubeAudio', {
+              height: '0',
+              width: '0',
+              videoId: 'KJzBxJ8ExRk', // Substitua pelo ID do vídeo do YouTube
+              events: {
+                  'onReady': onPlayerReady,
+                  'onStateChange': onPlayerStateChange
+              }
+          });
+      }
 
-    function onPlayerReady(event) {
-        // O vídeo está pronto para ser reproduzido
-        // Adicione ações adicionais aqui, se necessário
-        setupAudioButton();
-    }
+      function onPlayerReady(event) {
+          // O vídeo está pronto para ser reproduzido
+          // Adicione ações adicionais aqui, se necessário
+          setupAudioButton();
+      }
 
-    function onPlayerStateChange(event) {
-        // Lidar com mudanças no estado do player, se necessário
-    }
+      function onPlayerStateChange(event) {
+          // Lidar com mudanças no estado do player, se necessário
+      }
 
-    function setupAudioButton() {
-        var playButton = document.getElementById('playButton');
-        var isAudioPlaying = false;
+      function setupAudioButton() {
+          var playButton = document.getElementById('playButton');
+          var isAudioPlaying = false;
 
-        playButton.addEventListener('click', function () {
-            if (!isAudioPlaying) {
-                player.playVideo();
-            }
+          playButton.addEventListener('click', function () {
+              if (!isAudioPlaying) {
+                  player.playVideo();
+              }
 
-            isAudioPlaying = true;
-        });
-
-        // Adiciona um evento de toque para iniciar a reprodução em dispositivos móveis
-        playButton.addEventListener('touchstart', function () {
-            if (!isAudioPlaying) {
-                player.playVideo();
-            }
-
-            isAudioPlaying = true;
-        });
-    }
-</script>
+              isAudioPlaying = true;
+          });
+      }
+  </script>
 </body>
 
 <body>
