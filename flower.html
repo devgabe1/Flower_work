@@ -14,39 +14,64 @@
 
   <!-- Conteúdo da página -->
 
-  <!-- Botão de play para o áudio da música -->
-  <div class="audio-button" style="position: absolute; top: 16%; left: 50%; transform: translate(-50%, -50%); z-index: 999;">
-      <button id="playButton" style="font-size: 16px; padding: 5px 5px; cursor: pointer;">Play Áudio</button>
+  <!-- Painel de controle para o áudio da música -->
+  <div class="audio-control-panel" style="position: absolute; top: 16%; left: 50%; transform: translate(-50%, -50%); z-index: 999; display: flex; align-items: center;">
+      <button id="playButton" style="font-size: 16px; padding: 5px 5px; cursor: pointer;">Play</button>
+
   </div>
 
-  <!-- Elemento de áudio oculto -->
-  <audio id="audioPlayer" src="partilhar.mp3" style="display: none;"></audio>
+  <!-- Elemento de áudio com painel de controle -->
+  <audio id="audioPlayer" src="partilhar.mp3" style="width: 100%;"></audio>
 
   <script>
       var audioPlayer;
+      var playButton;
+
       var isAudioPlaying = false;
 
       document.addEventListener('DOMContentLoaded', function () {
           audioPlayer = document.getElementById('audioPlayer');
-          setupAudioButton();
+          playButton = document.getElementById('playButton');
+
+          setupAudioControl();
       });
 
-      function setupAudioButton() {
-          var playButton = document.getElementById('playButton');
-
+      function setupAudioControl() {
           playButton.addEventListener('click', function () {
               if (!isAudioPlaying) {
                   playAudio();
+              } else {
+                  pauseAudio();
               }
 
-              isAudioPlaying = true;
+              isAudioPlaying = !isAudioPlaying;
           });
+
       }
 
       function playAudio() {
           audioPlayer.play().catch(function () {
               // Tratamento de erros, se necessário
           });
+
+          playButton.textContent = 'Pause';
+      }
+
+      function pauseAudio() {
+          audioPlayer.pause();
+          playButton.textContent = 'Play';
+      }
+
+      function updateAudioTime() {
+          var currentTime = formatTime(audioPlayer.currentTime);
+          var duration = formatTime(audioPlayer.duration);
+          document.getElementById('audioTime').textContent = currentTime + ' / ' + duration;
+      }
+
+      function formatTime(seconds) {
+          var minutes = Math.floor(seconds / 60);
+          var remainingSeconds = Math.floor(seconds % 60);
+          return minutes + ':' + (remainingSeconds < 10 ? '0' : '') + remainingSeconds;
       }
   </script>
 </body>
