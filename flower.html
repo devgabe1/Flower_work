@@ -58,9 +58,11 @@
           playButton.addEventListener('click', function () {
               if (!isAudioPlaying) {
                   player.playVideo();
+              } else {
+                  player.pauseVideo();
               }
 
-              isAudioPlaying = true;
+              isAudioPlaying = !isAudioPlaying;
           });
       }
   </script>
