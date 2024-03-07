@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="img/flowers.png" type="image/x-icon">
+    <title>Flowers</title>
+    <!-- Mova o script da API do YouTube para o cabeçalho -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+</head>
+<body>
+    <div class="greetings">
+        <span>A M E P</span>
+    </div>
+    <div class="description">
+        <span>Feliz dia das Mulheres!</span>
+    </div>
+    
+    <!-- Botão de play para o áudio do vídeo e navegação para "flower.html" -->
+    <div class="audio-button">
+        <button id="playAndGoButton">Play Áudio e Ir para Flower</button>
+    </div>
+
+    <!-- Substitua 'VIDEO_ID' pelo ID do vídeo do YouTube -->
+    <div id="youtubeAudio" style="display: none;"></div>
+
+    <script>
+        var player;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtubeAudio', {
+                height: '0',
+                width: '0',
+                videoId: 'ivHE7pQEEHI', // Substitua pelo ID do vídeo do YouTube
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // O vídeo está pronto para ser reproduzido
+            // Adicione ações adicionais aqui, se necessário
+            setupPlayAndGoButton();
+            restoreAudioState(); // Restaura o estado do áudio ao carregar a página
+        }
+
+        function onPlayerStateChange(event) {
+            // Lidar com mudanças no estado do player, se necessário
+            saveAudioState(); // Salva o estado do áudio quando ele muda
+        }
+
+        function setupPlayAndGoButton() {
+            var playAndGoButton = document.getElementById('playAndGoButton');
+            var isAudioPlaying = false;
+
+            playAndGoButton.addEventListener('click', function () {
+                // Reproduz ou pausa o áudio
+                if (!isAudioPlaying) {
+                    player.playVideo();
+                    playAndGoButton.textContent = 'Pause Áudio e Ir para Flower';
+                } else {
+                    player.pauseVideo();
+                    playAndGoButton.textContent = 'Play Áudio e Ir para Flower';
+                }
+
+                // Navega para "flower.html"
+                window.location.href = 'flower.html';
+
+                isAudioPlaying = !isAudioPlaying;
+            });
+        }
+
+        // Funções para persistir o estado do áudio usando localStorage
+        function saveAudioState() {
+            var isAudioPlaying = player.getPlayerState() === YT.PlayerState.PLAYING;
+            localStorage.setItem('audioState', isAudioPlaying);
+        }
+
+        function restoreAudioState() {
+            var savedAudioState = localStorage.getItem('audioState');
+            if (savedAudioState === 'true') {
+                player.playVideo();
+            }
+        }
+
+        // Evento unload para garantir que o estado do áudio seja salvo ao sair da página
+        window.addEventListener('unload', function () {
+            saveAudioState();
+        });
+    </script>
+</body>
+</html>
