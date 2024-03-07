@@ -33,7 +33,7 @@
           player = new YT.Player('youtubeAudio', {
               height: '0',
               width: '0',
-              videoId: 'pOYrcQC1k68', // Substitua pelo ID do vídeo do YouTube
+              videoId: 'KJzBxJ8ExRk', // Substitua pelo ID do vídeo do YouTube
               events: {
                   'onReady': onPlayerReady,
                   'onStateChange': onPlayerStateChange
@@ -58,13 +58,9 @@
           playButton.addEventListener('click', function () {
               if (!isAudioPlaying) {
                   player.playVideo();
-                  playButton.textContent = 'Pause Áudio';
-              } else {
-                  player.pauseVideo();
-                  playButton.textContent = 'Play Áudio';
               }
 
-              isAudioPlaying = !isAudioPlaying;
+              isAudioPlaying = true;
           });
       }
   </script>
