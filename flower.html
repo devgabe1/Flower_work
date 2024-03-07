@@ -14,66 +14,68 @@
 
   <!-- Conteúdo da página -->
 
-  <!-- Painel de controle para o áudio da música -->
-  <div class="audio-control-panel" style="position: absolute; top: 16%; left: 50%; transform: translate(-50%, -50%); z-index: 999; display: flex; align-items: center;">
-      <button id="playButton" style="font-size: 16px; padding: 5px 5px; cursor: pointer;">Play</button>
-
+  <!-- Botão de play para o áudio do vídeo -->
+  <div class="audio-button" style="position: absolute; top: 16%; left: 50%; transform: translate(-50%, -50%); z-index: 999;">
+      <button id="playButton" style="font-size: 16px; padding: 5px 5px; cursor: pointer;">Play Áudio</button>
   </div>
 
-  <!-- Elemento de áudio com painel de controle -->
-  <audio id="audioPlayer" src="partilhar.mp3" style="width: 100%;"></audio>
+  <!-- Substitua 'VIDEO_ID' pelo ID do vídeo do YouTube -->
+  <div id="youtubeAudio" style="display: none;"></div>
 
   <script>
-      var audioPlayer;
-      var playButton;
-
+      var player;
       var isAudioPlaying = false;
+      var userClicked = false;
 
-      document.addEventListener('DOMContentLoaded', function () {
-          audioPlayer = document.getElementById('audioPlayer');
-          playButton = document.getElementById('playButton');
+      function onYouTubeIframeAPIReady() {
+          player = new YT.Player('youtubeAudio', {
+              height: '0',
+              width: '0',
+              videoId: 'pOYrcQC1k68', // Substitua pelo ID do vídeo do YouTube
+              events: {
+                  'onReady': onPlayerReady,
+                  'onStateChange': onPlayerStateChange
+              }
+          });
+      }
 
-          setupAudioControl();
-      });
+      function onPlayerReady(event) {
+          // O vídeo está pronto para ser reproduzido
+          // Adicione ações adicionais aqui, se necessário
+          setupAudioButton();
+      }
 
-      function setupAudioControl() {
+      function onPlayerStateChange(event) {
+          // Lidar com mudanças no estado do player, se necessário
+      }
+
+      function setupAudioButton() {
+          var playButton = document.getElementById('playButton');
+
           playButton.addEventListener('click', function () {
               if (!isAudioPlaying) {
-                  playAudio();
+                  player.playVideo();
               } else {
-                  pauseAudio();
+                  player.pauseVideo();
               }
 
               isAudioPlaying = !isAudioPlaying;
           });
 
-      }
-
-      function playAudio() {
-          audioPlayer.play().catch(function () {
-              // Tratamento de erros, se necessário
+          playButton.addEventListener('mousedown', function() {
+              userClicked = true;
           });
 
-          playButton.textContent = 'Pause';
-      }
-
-      function pauseAudio() {
-          audioPlayer.pause();
-          playButton.textContent = 'Play';
-      }
-
-      function updateAudioTime() {
-          var currentTime = formatTime(audioPlayer.currentTime);
-          var duration = formatTime(audioPlayer.duration);
-          document.getElementById('audioTime').textContent = currentTime + ' / ' + duration;
-      }
-
-      function formatTime(seconds) {
-          var minutes = Math.floor(seconds / 60);
-          var remainingSeconds = Math.floor(seconds % 60);
-          return minutes + ':' + (remainingSeconds < 10 ? '0' : '') + remainingSeconds;
+          // Adicionar um evento de clique para reprodução do vídeo apenas após um clique direto do usuário
+          document.addEventListener('click', function() {
+              if (userClicked && !isAudioPlaying) {
+                  player.playVideo();
+                  isAudioPlaying = true;
+              }
+          }, { once: true });
       }
   </script>
+  <script src="https://www.youtube.com/iframe_api"></script>
 </body>
 
 <body>
