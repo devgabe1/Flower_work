@@ -36,12 +36,16 @@
 
           playButton.addEventListener('click', function () {
               if (!isAudioPlaying) {
-                  audioPlayer.play();
-              } else {
-                  audioPlayer.pause();
+                  playAudio();
               }
 
-              isAudioPlaying = !isAudioPlaying;
+              isAudioPlaying = true;
+          });
+      }
+
+      function playAudio() {
+          audioPlayer.play().catch(function () {
+              // Tratamento de erros, se necessário
           });
       }
   </script>
