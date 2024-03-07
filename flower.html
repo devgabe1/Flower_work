@@ -20,19 +20,16 @@
   </div>
 
   <!-- Elemento de áudio oculto -->
-  <audio id="audioPlayer" src="partilhar.mp3" style="display: none;"></audio>
+  <audio id="audioPlayer" src="partilhar.mp3" controls ></audio>
 
   <script>
       var audioPlayer;
       var isAudioPlaying = false;
 
-      playButton.addEventListener('touchstart', function () {
-    if (!isAudioPlaying) {
-        playAudio().then(function () {
-            isAudioPlaying = true;
-        });
-    }
-});
+      document.addEventListener('DOMContentLoaded', function () {
+          audioPlayer = document.getElementById('audioPlayer');
+          setupAudioButton();
+      });
 
       function setupAudioButton() {
           var playButton = document.getElementById('playButton');
